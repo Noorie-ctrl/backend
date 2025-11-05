@@ -3,11 +3,16 @@ import express from 'express';
 import prisma from './config/db.js'; // adjust path if needed
 import authRoutes from './routes/auth.js';
 import protectedRoutes from './routes/protected.js';
+import { errorHandler } from "./middlewares/errorHandler.js";
+import cors from 'cors';
+import helmet from 'helmet';
 
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.use(helmet());
+app.use(cors());
 app.use(express.json());
 
 app.get('/', async (req, res) => {
@@ -16,6 +21,8 @@ app.get('/', async (req, res) => {
 });
 app.use("/api/auth", authRoutes)
 app.use("/api", protectedRoutes);
+
+app.use(errorHandler);
 
 
 async function startServer() {
