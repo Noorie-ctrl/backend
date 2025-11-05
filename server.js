@@ -7,6 +7,8 @@ import { errorHandler } from "./middlewares/errorHandler.js";
 import cors from 'cors';
 import helmet from 'helmet';
 
+console.log("JWT_SECRET loaded:", process.env.JWT_SECRET);
+
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -14,6 +16,7 @@ const PORT = process.env.PORT || 3000;
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
+app.get("/health", (req, res) => res.send("OK"));
 
 app.get('/', async (req, res) => {
   const message = 'Hello from the birthday girl, yipee!';
