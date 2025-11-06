@@ -16,6 +16,7 @@ export const registerUserService = async (name, email, password) => {
   });
 
   if (!jwtConfig.secret) throw new Error("JWT secret is not set!");
+  console.log("JWT_SECRET in authServices:", jwtConfig.secret);
 
   const token = jwt.sign(
     { id: user.id, email: user.email },
