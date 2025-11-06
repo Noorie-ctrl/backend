@@ -15,14 +15,12 @@ export const registerUserService = async (name, email, password) => {
     data: { name, email, password: hashedPassword },
   });
 
+  console.log("JWT config", jwtConfig);
   if (!jwtConfig.secret) throw new Error("JWT secret is not set!");
-  console.log("JWT_SECRET in authServices:", jwtConfig.secret);
 
-  const token = jwt.sign(
-    { id: user.id, email: user.email },
-    jwtConfig.secret,
-    { expiresIn: jwtConfig.expiresIn }
-  );
+  const token = jwt.sign({ id: user.id, email: user.email }, jwtConfig.secret, {
+    expiresIn: jwtConfig.expiresIn,
+  });
 
   return {
     user: { id: user.id, name: user.name, email: user.email },
@@ -40,11 +38,9 @@ export const loginUser = async ({ email, password }) => {
 
   if (!jwtConfig.secret) throw new Error("JWT secret is not set!");
 
-  const token = jwt.sign(
-    { id: user.id, email: user.email },
-    jwtConfig.secret,
-    { expiresIn: jwtConfig.expiresIn }
-  );
+  const token = jwt.sign({ id: user.id, email: user.email }, jwtConfig.secret, {
+    expiresIn: jwtConfig.expiresIn,
+  });
 
   return {
     user: { id: user.id, name: user.name, email: user.email },
