@@ -2,7 +2,7 @@ import 'dotenv/config';
 import express from 'express';
 import prisma from './config/db.js'; // adjust path if needed
 import authRoutes from './routes/auth.js';
-import protectedRoutes from './routes/protected.js';
+
 import { errorHandler } from "./middlewares/errorHandler.js";
 import cors from 'cors';
 import helmet from 'helmet';
@@ -23,7 +23,7 @@ app.get('/', async (req, res) => {
   res.send(message);
 });
 app.use("/api/auth", authRoutes)
-app.use("/api", protectedRoutes);
+
 
 app.use(errorHandler);
 
